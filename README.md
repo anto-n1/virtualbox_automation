@@ -1,35 +1,57 @@
-# virtualbox_automation
+# Virtualbox automation
 
-Automation of virtual machine deployment and configuration.
+Automatisation de déploiement de machines virtuelles Virtualbox.
+
+## Installation
+
+### Vagrant
+
+Il existe deux méthodes :
+
+1. Installation avec gestionnaire de paquet
 
 ```bash
 dnf install vagrant bsdtar
 ```
 
-vagrant package --base Debian
-vagrant box add debian.box --name=debian
-vagrant box list
-vagrant box rm
+2. Installation depuis [vagrantup.com](https://www.vagrantup.com)
+
+Cette méthode est recommandée en raison d'un problème de dépendances rencontré
+avec Vagrant installé via le gestionnaire de paquet DNF.
+
+L'installation de Vagrant se fait en téléchargeant le package sur
+[vagrantup.com](https://www.vagrantup.com/download) et le déplacant dans /usr/bin.
+Penser à rendre le binaire exécutable.
+
+Dans les deux cas, installer par la suite le plugin vagrant-vbguest permettant
+d'installer les additions invités de Virtualbox sur les machines virtuelles.
+
+```bash
+vagrant plugin install vagrant-vbguest
+```
 
 vagrant up --provider=virtualbox
 
-base : activer root et authent root ssh
-
-installation de vagrant en téléchargeant le package sur le site et le déplacant dans /usr/bin
-car problème d'installation de ./vagrant plugin install vagrant-vbguest sinon
-
-vagrant 2.2.14
+### Jenkins
 
 jenkins : https://www.jenkins.io/doc/book/installing/linux/
 
-Following process is for CentOS
+```bash
+vim /etc/sysconfig/jenkins -> editer la variable $JENKINS_USER="antonin"
+````
 
-    Open up the this script (using VIM or other editor):
+```bash
+chown -R antonin:antonin /var/log/jenkins
+chown -R antonin:antonin /var/cache/jenkins
+chown -R antonin:antonin /var/lib/jenkins
+```
 
-vim /etc/sysconfig/jenkins
+### Ansible
 
-$JENKINS_USER="root"
+## Versions
 
-sudo chown -R antonin:antonin /var/log/jenkins
-sudo chown -R antonin:antonin /var/cache/jenkins
-sudo chown -R antonin:antonin /var/lib/jenkins
+Versions des logiciels utilisés :
+
+* Vagrant 2.2.14
+* Jenkins
+* Ansible

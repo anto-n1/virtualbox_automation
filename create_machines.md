@@ -1,6 +1,6 @@
-# Création machines virtuelles
+# Gestion des machines virtuelles
 
-Création des machines virtuelles servant de template
+Création et gestion des machines virtuelles servant de template
 au format box.
 
 ## Debian
@@ -19,8 +19,18 @@ rm -rf /EMPTY
 cat /dev/null > ~/.bash_history && history -c && sudo poweroff
 ```
 
-Export de la VM dans le fichier debian.box :
+## Package Vagrant
+
+Export d'une VM dans un fichier box :
 
 ```bash
 vagrant package --base /home/antonin/virtualbox/debian_vagrant_base --output debian.box 
+vagrant box add debian.box --name=debian
+```
+
+Suppression d'une VM enregistrée avec Vagrant :
+
+```bash
+vagrant box list
+vagrant box remove <id>
 ```
