@@ -1,15 +1,26 @@
-# Création Debian
+# Création machines virtuelles
 
-sudo apt install sudo
-sudo gpasswd -a antonin sudo
-sudo vim /etc/ssh/sshd_config
-edit root password
+Création des machines virtuelles servant de template
+au format box.
 
-sudo apt-get clean
+## Debian
 
-sudo dd if=/dev/zero of=/EMPTY bs=1M
-sudo rm -f /EMPTY
+Sur la VM template :
 
+```bash
+apt update
+apt install sudo
+gpasswd -a antonin sudo
+vi /etc/ssh/sshd_config -> PermitRootLogin yes
+
+apt clean
+dd if=/dev/zero of=/EMPTY bs=1M
+rm -rf /EMPTY
 cat /dev/null > ~/.bash_history && history -c && sudo poweroff
+```
 
+Export de la VM dans le fichier debian.box :
+
+```bash
 vagrant package --base /home/antonin/virtualbox/debian_vagrant_base --output debian.box 
+```
