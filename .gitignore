@@ -1,3 +1,5 @@
 # ---> Vagrant
 .vagrant/
-
+*.box
+*.log
+jenkins_data/
