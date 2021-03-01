@@ -2,13 +2,35 @@
 
   - name: Installation d'une interface graphique pour Linux
     hosts: all
+    vars:
+        gui: "{{ gui }}"
 
-    tasks:
+    tasks:      
 
     - name: Installation de paquets
       apt:
         name: "{{ gui }}"
         state: present
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes
+    
+    - name: Installation de paquets
+      dnf:
+        name: "@workstation"
+        state: present
+      when: ansible_facts['os_family'] == "RedHat" and gui == "gnome"
+      become: yes
+    
+    - name: Installation de paquets
+      dnf:
+        name: "@Xfce"
+        state: present
+      when: ansible_facts['os_family'] == "RedHat" and gui == "xfce4"
+      become: yes
+
+    - name: Lancement du gestionnaire de fenêtre au démarrage de la VM
+      ansible.builtin.shell: systemctl set-default graphical.target
+      when: ansible_facts['os_family'] == "RedHat"
       become: yes
 
     - name: Redémarrage de la VM
