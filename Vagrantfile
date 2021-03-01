@@ -1,15 +1,23 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$VM_NAME = "vm_name"
+$VM_TYPE = "vm_type"
+$IP_ADDRESS = "vm_ip_address"
+$MEMORY = vm_memory
+$CPU = vm_cpu
+$SHARED_FOLDER = vm_shared_folder
+
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "debian.box"
-  config.vm.define "debian"
-  config.vm.hostname = "debian"
+  config.vm.box = $VM_TYPE + ".box"
+  config.vm.hostname = $VM_NAME
 
-  config.vm.network "private_network", ip: "192.168.56.100", name: "vboxnet0"
+  config.vm.network "private_network", ip: $IP_ADDRESS
 
-  config.vm.synced_folder "/home/antonin/virtualbox/shared_folder", "/share"
+  if $SHARED_FOLDER
+    config.vm.synced_folder "/home/antonin/virtualbox/shared_folder", "/share"
+  end
 
   config.ssh.username = "root"
   config.ssh.password = "mdp"
@@ -19,9 +27,9 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
 
     vb.gui = false
-    vb.memory = "4000"
-    vb.cpus = 4
-    vb.customize ["modifyvm", :id, "--nicpromisc1", "allow-all"]
+    vb.memory = $MEMORY
+    vb.cpus = $CPU
+    vb.name = $VM_NAME
 
   end
   
