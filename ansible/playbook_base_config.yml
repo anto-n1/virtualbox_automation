@@ -17,3 +17,26 @@
       copy:
         src: vimrc
         dest: /home/antonin/.vimrc
+
+    - name: Copie du fichier de configuration de bash
+      copy:
+        src: bashrc
+        dest: /home/antonin/.bashrc
+
+    - name: Suppresion de la demande de mot de passe pour sudo (Debian groupe sudo)
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo ALL='
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: /usr/sbin/visudo -cf %s
+      become: yes
+
+    - name: Suppresion de la demande de mot de passe pour sudo (CentOS groupe wheel)
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%wheel ALL='
+        line: '%whell ALL=(ALL) NOPASSWD: ALL'
+        validate: /usr/sbin/visudo -cf %s
+      become: yes
