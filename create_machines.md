@@ -19,13 +19,25 @@ rm -rf /EMPTY
 cat /dev/null > ~/.bash_history && history -c && sudo poweroff
 ```
 
+## RedHat
+
+```bash
+subscription-manager register --auto-attach
+dnf update
+dnf clean all
+
+dd if=/dev/zero of=/EMPTY bs=1M
+rm -rf /EMPTY
+cat /dev/null > ~/.bash_history && history -c && sudo poweroff
+```
+
 ## Package Vagrant
 
 Export d'une VM dans un fichier box :
 
 ```bash
 vagrant package --base /home/antonin/virtualbox/debian_vagrant_base --output debian.box 
-vagrant box add debian.box --name=debian
+vagrant box add debian.box --name=debian.box
 ```
 
 Suppression d'une VM enregistrée avec Vagrant :
