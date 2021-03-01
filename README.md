@@ -6,18 +6,23 @@ Automatisation de déploiement de machines virtuelles Virtualbox.
 
 ### Vagrant
 
-Il existe deux méthodes :
+Il existe deux méthodes pour installer Vagrant.
 
 1. Installation avec gestionnaire de paquet
-
-```bash
-dnf install vagrant bsdtar
-```
-
 2. Installation depuis [vagrantup.com](https://www.vagrantup.com)
 
-Cette méthode est recommandée en raison d'un problème de dépendances rencontré
-avec Vagrant installé via le gestionnaire de paquet DNF.
+La méthode 2 est recommandée en raison d'un problème de dépendances rencontré
+avec Vagrant installé via le gestionnaire de paquet DNF en méthode 1.
+
+#### 1 - Installation avec gestionnaire de paquet
+
+```bash
+dnf install vagrant
+```
+
+L'installation du pckage bsdtar peut éventuellement être nécessaire.
+
+#### 2 - Installation depuis [vagrantup.com](https://www.vagrantup.com)
 
 L'installation de Vagrant se fait en téléchargeant le package sur
 [vagrantup.com](https://www.vagrantup.com/download) et le déplacant dans /usr/bin.
@@ -30,17 +35,15 @@ d'installer les additions invités de Virtualbox sur les machines virtuelles.
 vagrant plugin install vagrant-vbguest
 ```
 
-vagrant up --provider=virtualbox
-
 ### Jenkins
 
-jenkins : https://www.jenkins.io/doc/book/installing/linux/
+La procédure d'installation est décrite [ici](https://www.jenkins.io/doc/book/installing/linux).
+
+Après installation :
 
 ```bash
 vim /etc/sysconfig/jenkins -> editer la variable $JENKINS_USER="antonin"
-````
 
-```bash
 chown -R antonin:antonin /var/log/jenkins
 chown -R antonin:antonin /var/cache/jenkins
 chown -R antonin:antonin /var/lib/jenkins
@@ -59,3 +62,7 @@ Versions des logiciels utilisés :
 * Vagrant 2.2.14
 * Jenkins 2.281
 * Ansible 2.9.17
+
+## TODO
+
+* Gérer le bashrc pour RedHat -> alias

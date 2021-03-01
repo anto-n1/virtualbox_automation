@@ -3,9 +3,12 @@
 Création et gestion des machines virtuelles servant de template
 au format box.
 
+L'objectif est de partir d'une machine quasiment vide la plus petite
+possible.
+
 ## Debian
 
-Sur la VM template :
+Commandes effectuées sur Debian avant l'export :
 
 ```bash
 apt update
@@ -20,6 +23,8 @@ cat /dev/null > ~/.bash_history && history -c && sudo poweroff
 ```
 
 ## RedHat
+
+Commandes effectuées sur RedHat avant l'export :
 
 ```bash
 subscription-manager register --auto-attach
@@ -40,9 +45,21 @@ vagrant package --base /home/antonin/virtualbox/debian_vagrant_base --output deb
 vagrant box add debian.box --name=debian.box
 ```
 
+Dans l'exemple ci-dessus, on utilisera donc le nom "debian.box" pour déployer
+la VM avec Vagrant : ```config.vm.box = "debian.box"```.
+
+Déployer une VM en ligne de commande :
+
+```bash
+vagrant up --provider=virtualbox
+```
+
 Suppression d'une VM enregistrée avec Vagrant :
 
 ```bash
 vagrant box list
 vagrant box remove <id>
 ```
+
+Il est aussi possible de se rendre dans /home/$USER/.vagrant/boxes afin de manipuler
+les boxes.
