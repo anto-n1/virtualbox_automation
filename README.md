@@ -2,9 +2,9 @@
 
 Automatisation de déploiement de machines virtuelles Virtualbox.
 
-## Installation
+## Installation des logiciels nécessaires
 
-### Vagrant
+### Installation Vagrant
 
 Il existe deux méthodes pour installer Vagrant.
 
@@ -14,7 +14,7 @@ Il existe deux méthodes pour installer Vagrant.
 La méthode 2 est recommandée en raison d'un problème de dépendances rencontré
 avec Vagrant installé via le gestionnaire de paquet DNF en méthode 1.
 
-#### 1 - Installation avec gestionnaire de paquet
+##### Méthode 1 - Installation avec gestionnaire de paquet
 
 ```bash
 dnf install vagrant
@@ -22,7 +22,7 @@ dnf install vagrant
 
 L'installation du pckage bsdtar peut éventuellement être nécessaire.
 
-#### 2 - Installation depuis [vagrantup.com](https://www.vagrantup.com)
+##### Méthode 2 - Installation depuis [vagrantup.com](https://www.vagrantup.com)
 
 L'installation de Vagrant se fait en téléchargeant le package sur
 [vagrantup.com](https://www.vagrantup.com/download) et le déplacant dans /usr/bin.
@@ -35,7 +35,7 @@ d'installer les additions invités de Virtualbox sur les machines virtuelles.
 vagrant plugin install vagrant-vbguest
 ```
 
-### Jenkins
+### Installation Jenkins
 
 La procédure d'installation est décrite [ici](https://www.jenkins.io/doc/book/installing/linux).
 
@@ -49,7 +49,7 @@ chown -R antonin:antonin /var/cache/jenkins
 chown -R antonin:antonin /var/lib/jenkins
 ```
 
-### Ansible
+### Installation Ansible
 
 ```bash
 dnf install ansible
