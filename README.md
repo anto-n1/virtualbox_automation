@@ -57,5 +57,5 @@ dnf install ansible
 Versions des logiciels utilisés :
 
 * Vagrant 2.2.14
-* Jenkins
-* Ansible
+* Jenkins 2.281
+* Ansible 2.9.17
