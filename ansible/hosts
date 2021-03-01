@@ -1,0 +1,1 @@
+192.168.33.10 ansible_ssh_user="antonin" ansible_ssh_pass="mdp" ansible_become_user="root" ansible_become_pass="mdp"

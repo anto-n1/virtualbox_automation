@@ -1,0 +1,16 @@
+---
+
+  - name: Installation d'une interface graphique pour Linux
+    hosts: all
+
+    tasks:
+
+    - name: Installation de paquets
+      apt:
+        name: "{{ gui }}"
+        state: present
+      become: yes
+
+    - name: Redémarrage de la VM
+      reboot:
+      become: yes

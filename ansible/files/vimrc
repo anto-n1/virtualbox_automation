@@ -1,0 +1,40 @@
+" VIM config file
+
+" Place this file in your /home directory : /home/$USER/.vimrc
+" To reload changes run 'source ~/.vimrc'
+
+" Disable compatibility with VI
+set nocompatible
+
+" Enable automatic indent
+set autoindent
+
+" Print cursor position
+set ruler
+
+" Show minimum 3 lines around of cursor
+set scrolloff=3
+
+" No case sensitive when search
+set ignorecase
+
+" Enable case sensitive when uppecase detect in search
+set smartcase
+
+" Highlight searches
+set incsearch
+set hlsearch
+
+" Edit terminal tab title with the editing file name  
+set title
+
+" Print line numbers
+set number
+
+" Enable color syntax
+syntax enable
+
+" Persistent undo
+set undofile
+" Create folder before
+set undodir=~/.vim/undodir

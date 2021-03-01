@@ -48,6 +48,10 @@ chown -R antonin:antonin /var/lib/jenkins
 
 ### Ansible
 
+```bash
+dnf install ansible
+```
+
 ## Versions
 
 Versions des logiciels utilisés :

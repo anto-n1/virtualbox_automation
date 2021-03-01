@@ -1,0 +1,19 @@
+---
+
+  - name: Configuration minimale des VM Linux
+    hosts: all
+
+    tasks:
+
+    - name: Installation de paquets
+      apt:
+        pkg:
+        - vim
+        - htop
+        - git
+      become: yes
+
+    - name: Copie du fichier de configuration de vim
+      copy:
+        src: vimrc
+        dest: /home/antonin/.vimrc
