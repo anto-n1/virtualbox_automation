@@ -1,3 +1,5 @@
 .vagrant/
 *.box
 *.log
+Vagrantfile_to_use
+ansible/hosts_to_use
