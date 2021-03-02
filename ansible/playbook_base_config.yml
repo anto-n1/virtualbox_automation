@@ -34,11 +34,30 @@
         dest: /home/antonin/.bashrc
       when: ansible_facts['os_family'] == "Debian"
 
+    - name: Suppression des répertoires inutiles dans /home/antonin
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /home/antonin/Documents
+        - /home/antonin/Music
+        - /home/antonin/Pictures
+        - /home/antonin/Public
+        - /home/antonin/Templates
+        - /home/antonin/Videos
+
     - name: Ajout d'antonin au groupe wheel
       ansible.builtin.user:
         name: antonin
         group: wheel
       when: ansible_facts['os_family'] == "RedHat"
+      become: yes
+
+    - name: Ajout d'antonin au groupe sudo
+      ansible.builtin.user:
+        name: antonin
+        group: sudo
+      when: ansible_facts['os_family'] == "Debian"
       become: yes
 
     - name: Suppresion de la demande de mot de passe pour sudo (Debian groupe sudo)
