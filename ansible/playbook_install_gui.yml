@@ -7,25 +7,18 @@
 
     tasks:      
 
-    - name: Installation de paquets
+    - name: Installation de Gnome ou Xfce
       apt:
         name: "{{ gui }}"
         state: present
       when: ansible_facts['os_family'] == "Debian"
       become: yes
     
-    - name: Installation de paquets
+    - name: Installation de Gnome pour RedHat (xfce non supporté)
       dnf:
         name: "@workstation"
         state: present
-      when: ansible_facts['os_family'] == "RedHat" and gui == "gnome"
-      become: yes
-    
-    - name: Installation de paquets
-      dnf:
-        name: "@Xfce"
-        state: present
-      when: ansible_facts['os_family'] == "RedHat" and gui == "xfce4"
+      when: ansible_facts['os_family'] == "RedHat" and (gui == "gnome" or gui == "xfce4")
       become: yes
 
     - name: Lancement du gestionnaire de fenêtre au démarrage de la VM
