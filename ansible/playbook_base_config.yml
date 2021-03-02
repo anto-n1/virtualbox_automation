@@ -28,11 +28,31 @@
         src: vimrc
         dest: /home/antonin/.vimrc
 
-    - name: Copie du fichier de configuration de bash
+    - name: Copie du fichier de configuration de bash pour Debian
       copy:
-        src: bashrc
+        src: bashrc_debian
         dest: /home/antonin/.bashrc
       when: ansible_facts['os_family'] == "Debian"
+
+    - name: Copie du fichier de configuration de bash pour Debian (root)
+      copy:
+        src: bashrc_debian
+        dest: /root/.bashrc
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes
+
+    - name: Copie du fichier de configuration de bash pour RedHat
+      copy:
+        src: bashrc_redhat
+        dest: /home/antonin/.bashrc
+      when: ansible_facts['os_family'] == "RedHat"
+    
+    - name: Copie du fichier de configuration de bash pour RedHat (root)
+      copy:
+        src: bashrc_redhat
+        dest: /root/.bashrc
+      when: ansible_facts['os_family'] == "RedHat"
+      become: yes
 
     - name: Suppression des répertoires inutiles dans /home/antonin
       ansible.builtin.file:
