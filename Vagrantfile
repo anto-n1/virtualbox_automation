@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 $VM_NAME = "vm_name"
-$VM_TYPE = "vm_type"
+$VM_TYPE = "vm_type" + ".box"
 $IP_ADDRESS = "vm_ip_address"
 $MEMORY = vm_memory
 $CPU = vm_cpu
@@ -10,26 +10,30 @@ $SHARED_FOLDER = vm_shared_folder
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = $VM_TYPE + ".box"
-  config.vm.hostname = $VM_NAME
+  config.vm.define $VM_NAME do | config |
 
-  config.vm.network "private_network", ip: $IP_ADDRESS
+    config.vm.box = $VM_TYPE
+    config.vm.hostname = $VM_NAME
 
-  if $SHARED_FOLDER
-    config.vm.synced_folder "/home/antonin/virtualbox/shared_folder", "/share"
-  end
+    config.vm.network "private_network", ip: $IP_ADDRESS
 
-  config.ssh.username = "root"
-  config.ssh.password = "mdp"
-  config.ssh.keys_only = false
-  config.ssh.insert_key = false
+    if $SHARED_FOLDER
+      config.vm.synced_folder "/home/antonin/virtualbox/shared_folder", "/share"
+    end
+    
+    config.ssh.username = "root"
+    config.ssh.password = "mdp"
+    config.ssh.keys_only = false
+    config.ssh.insert_key = false
 
-  config.vm.provider "virtualbox" do |vb|
+    config.vm.provider "virtualbox" do |vb|
 
-    vb.gui = false
-    vb.memory = $MEMORY
-    vb.cpus = $CPU
-    vb.name = $VM_NAME
+      vb.gui = false
+      vb.memory = $MEMORY
+      vb.cpus = $CPU
+      vb.name = $VM_NAME
+
+    end
 
   end
   
