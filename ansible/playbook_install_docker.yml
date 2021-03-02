@@ -1,0 +1,67 @@
+---
+
+  - name: Installation de Docker
+    hosts: all
+
+    tasks:
+
+    # Docker pour Debian
+
+    - name: Installation de packages nécessaires à Docker
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes
+
+    - name: Ajout Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes
+
+    - name: Ajout repo Docker
+      apt_repository:
+        repo: deb https://download.docker.com/linux/debian buster stable
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes
+    
+    - name: Installation de Docker
+      apt:
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes
+
+    # Docker pour RedHat
+
+    # Pour les deux VM
+    
+    - name: Créer le groupe docker s'il n'existe pas
+      ansible.builtin.group:
+        name: docker
+        state: present
+      become: yes
+
+    - name: Ajout d'antonin au groupe docker
+      ansible.builtin.user:
+        name: antonin
+        group: docker
+      become: yes
+
+    - name: Lancer le démon docker et le lancer au démarrage
+      ansible.builtin.systemd:
+        state: started
+        name: docker
+        enabled: true
+
+
