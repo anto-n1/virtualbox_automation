@@ -1,0 +1,78 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Lance le playbook Annsible d&apos;installation de logiciels supplémentaires sur une machine Linux.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>ip_address</name>
+          <description>Adresse IP de la VM sur laquelle installer des logiciels.</description>
+          <defaultValue>192.168.10.10</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@2.5.4">
+          <name>software</name>
+          <description>Choix de logiciels supplémentaires à installer</description>
+          <randomName>choice-parameter-4706515504758</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.76">
+              <script>return [
+&quot;wireshark:selected&quot;,
+&quot;docker&quot;,
+]</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.76">
+              <script></script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>install_software</projectName>
+          <projectFullName>install_software</projectFullName>
+          <choiceType>PT_CHECKBOX</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.ChoiceParameter>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>/home/antonin/informatique/git/virtualbox_automation</customWorkspace>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># Générer le fichier Vagrantfile
+python generate_vagrantfile.py ${ip_address}
+
+# Configuration de la VM avec Ansible
+export ANSIBLE_CONFIG=ansible/ansible.cfg
+
+IN=${software}
+
+IFS=&apos;,&apos; read -ra soft &lt;&lt;&lt; &quot;$IN&quot;
+
+for i in &quot;${soft[@]}&quot;; do
+	
+    if [[ $i == &quot;wireshark&quot; ]];then
+    	ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_wireshark.yml
+    fi
+    
+    if [[ $i == &quot;docker&quot; ]];then
+    	ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_docker.yml
+    fi
+
+done</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

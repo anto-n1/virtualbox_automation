@@ -1,0 +1,99 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Déploie une machine virtuelle.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>vm_name</name>
+          <description>Nom de la machine virtuelle (utilisé pour le nom sur Virtualbox ainsi qu&apos;en hostname).
+Uniquement lettres, chiffres, trait d&apos;unions et points.</description>
+          <defaultValue>no-name</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>vm_type</name>
+          <description>Choix du type d&apos;OS à installer.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>debian</string>
+              <string>redhat</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ip_address</name>
+          <description>Adresse IP de la VM à installer.</description>
+          <defaultValue>192.168.10.10</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>memory</name>
+          <description>Taille de la mémoire RAM (Mo).</description>
+          <defaultValue>4000</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>cpu</name>
+          <description>Nombre de vCPU.</description>
+          <defaultValue>4</defaultValue>
+          <trim>true</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.BooleanParameterDefinition>
+          <name>shared_folder</name>
+          <description>Partager un répertoire entre la machine hôte et la VM ?</description>
+          <defaultValue>false</defaultValue>
+        </hudson.model.BooleanParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>gui</name>
+          <description>Choix d&apos;une interface graphique (Linux uniquement).
+Xfce uniquement disponible pour Debian. Si Xfce est choisi avec RedHat, Gnome sera installé à la place. </description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>no</string>
+              <string>gnome</string>
+              <string>xfce4</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <customWorkspace>/home/antonin/informatique/git/virtualbox_automation</customWorkspace>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#Supprimer la ligne correpondant à l&apos;IP dans know_hosts
+ssh-keygen -R ${ip_address}
+
+# Générer le fichier Vagrantfile
+python generate_vagrantfile.py ${vm_name} ${vm_type} ${ip_address} ${memory} ${cpu} ${shared_folder}
+
+
+# Déploiement de la VM sur Virtualbox via Vagrant
+export VAGRANT_VAGRANTFILE=Vagrantfile_to_use
+vagrant up
+
+# Configuration de la VM avec Ansible
+export ANSIBLE_CONFIG=ansible/ansible.cfg
+
+ansible-playbook -i ansible/hosts_to_use ansible/playbook_base_config.yml
+
+if [[ ${gui} != &quot;no&quot; ]];
+then
+	ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_gui.yml -e gui=${gui}
+fi</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
