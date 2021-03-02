@@ -66,3 +66,4 @@ Versions des logiciels utilisés :
 ## TODO
 
 * Gérer le bashrc pour RedHat -> alias
+* Installation de Docker pour RedHat
