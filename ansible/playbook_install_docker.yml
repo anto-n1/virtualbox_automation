@@ -44,6 +44,34 @@
 
     # Docker pour RedHat
 
+    - name: Installation de packages nécessaires à Docker
+      yum:
+        name: yum-utils
+        state: present
+      when: ansible_facts['os_family'] == "RedHat"
+      become: yes
+
+    - name: Ajout repo Docker
+      yum_repository:
+        name: docker-repo
+        description: "docker"
+        baseurl: "https://download.docker.com/linux/centos/$releasever/$basearch/stable"
+        gpgcheck: yes
+        gpgcakey: https://download.docker.com/linux/centos/gpg
+        enabled: yes
+      when: ansible_facts['os_family'] == "RedHat"
+      become: yes
+
+    - name: Installation de Docker
+      yum:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+      when: ansible_facts['os_family'] == "RedHat"
+      become: yes
+
     # Pour les deux VM
     
     - name: Créer le groupe docker s'il n'existe pas
@@ -63,5 +91,4 @@
         state: started
         name: docker
         enabled: true
-
-
+      become: yes

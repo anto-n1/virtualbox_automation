@@ -65,8 +65,6 @@ Versions des logiciels utilisés :
 
 ## TODO
 
-* Installation de Docker pour RedHat
 * Refaire une box debian avec 25Go plutot que 15 -> affichage sur Jenkins
-* Playbook de clone de repo Github
 * Autologin xfce
 * Désactiver le screensaver sur xfce et gnome

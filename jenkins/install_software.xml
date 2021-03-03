@@ -63,7 +63,7 @@ IFS=&apos;,&apos; read -ra soft &lt;&lt;&lt; &quot;$IN&quot;
 
 for i in &quot;${soft[@]}&quot;; do
 	
-    if [[ $i == &quot;wireshark&quot; ]];then
+    if [[ $i == &quot;network_utilities&quot; ]];then
     	ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_network_utilities.yml
     fi
     
