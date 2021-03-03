@@ -37,3 +37,25 @@
       shell: dpkg-reconfigure wireshark
       when: ansible_facts['os_family'] == "Debian"
       become: yes
+
+    - name: Installation d'nmap + net-tools + whois + bind-utils sur Redhat
+      dnf:
+        pkg:
+          - nmap
+          - net-tools
+          - whois
+          - bind-utils
+        state: present
+      when: ansible_facts['os_family'] == "RedHat"
+      become: yes
+
+    - name: Installation d'nmap + net-tools + whois + dnsutils sur Debian
+      apt:
+        pkg:
+          - nmap
+          - net-tools
+          - whois
+          - dnsutils
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes

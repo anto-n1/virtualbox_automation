@@ -14,13 +14,15 @@
         </hudson.model.StringParameterDefinition>
         <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@2.5.4">
           <name>software</name>
-          <description>Choix de logiciels supplémentaires à installer</description>
+          <description>Choix de logiciels supplémentaires à installer.
+
+network_utilities = Wireshark + nmap + whois + nslookup + dnsutils</description>
           <randomName>choice-parameter-4706515504758</randomName>
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.76">
               <script>return [
-&quot;wireshark:selected&quot;,
+&quot;network_utilities:selected&quot;,
 &quot;docker&quot;,
 ]</script>
               <sandbox>false</sandbox>
@@ -62,7 +64,7 @@ IFS=&apos;,&apos; read -ra soft &lt;&lt;&lt; &quot;$IN&quot;
 for i in &quot;${soft[@]}&quot;; do
 	
     if [[ $i == &quot;wireshark&quot; ]];then
-    	ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_wireshark.yml
+    	ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_network_utilities.yml
     fi
     
     if [[ $i == &quot;docker&quot; ]];then
