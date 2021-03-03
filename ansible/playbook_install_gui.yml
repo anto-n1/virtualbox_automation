@@ -51,6 +51,18 @@
       when: ansible_facts['os_family'] == "RedHat"
       become: yes
 
+    - name: Suppression des répertoires inutiles dans /home/antonin
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /home/antonin/Documents
+        - /home/antonin/Music
+        - /home/antonin/Pictures
+        - /home/antonin/Public
+        - /home/antonin/Templates
+        - /home/antonin/Videos
+
     - name: Redémarrage de la VM
       reboot:
       become: yes
