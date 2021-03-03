@@ -66,3 +66,8 @@ Versions des logiciels utilisés :
 ## TODO
 
 * Installation de Docker pour RedHat
+* Refaire une box debian avec 25Go plutot que 15 -> affichage sur Jenkins
+* Changer playbook install wireshark en plein d'outils d'analyse réseau (nmap...)
+* Playbook de clone de repo Github
+* Autologin xfce
+* Désactiver le screensaver sur xfce et gnome
