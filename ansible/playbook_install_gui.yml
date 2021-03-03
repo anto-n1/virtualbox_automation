@@ -7,7 +7,7 @@
 
     tasks:      
 
-    - name: Installation de Gnome ou Xfce
+    - name: Installation de "{{ gui }}" pour Debian
       apt:
         name: "{{ gui }}"
         state: present
@@ -18,11 +18,36 @@
       dnf:
         name: "@workstation"
         state: present
-      when: ansible_facts['os_family'] == "RedHat" and (gui == "gnome" or gui == "xfce4")
+      when: ansible_facts['os_family'] == "RedHat"
       become: yes
 
     - name: Lancement du gestionnaire de fenêtre au démarrage de la VM
       ansible.builtin.shell: systemctl set-default graphical.target
+      when: ansible_facts['os_family'] == "RedHat"
+      become: yes
+
+    - name: Activer autologin Gnome Debian
+      ansible.builtin.lineinfile:
+        path: /etc/gdm3/daemon.conf
+        state: present
+        regexp: "# AutomaticLoginEnable = true"
+        line: "AutomaticLoginEnable = true"
+      when: ansible_facts['os_family'] == "Debian" and gui == "gnome"
+      become: yes
+    
+    - name: Activer autologin Gnome Debian
+      ansible.builtin.lineinfile:
+        path: /etc/gdm3/daemon.conf
+        state: present
+        regexp: "# AutomaticLogin = user1"
+        line: "AutomaticLogin = antonin"
+      when: ansible_facts['os_family'] == "Debian" and gui == "gnome"
+      become: yes
+
+    - name: Activer autologin Gnome RedHat
+      copy:
+        src: gdm_custom_redhat.conf
+        dest: /etc/gdm/custom.conf
       when: ansible_facts['os_family'] == "RedHat"
       become: yes
 
