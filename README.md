@@ -70,3 +70,5 @@ Versions des logiciels utilisés :
 * Désactiver le screensaver (blank screen) sur xfce et gnome
 * Déploiement machine Windows
 * Script d'installation de virtualbox_automation
+* Utiliser LVM lors de l'installation pour choisir taille du disque
+* Régler problème SSH nouvelle machine
