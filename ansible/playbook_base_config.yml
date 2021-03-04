@@ -11,6 +11,7 @@
         - vim
         - htop
         - git
+        - sudo
       when: ansible_facts['os_family'] == "Debian"
       become: yes      
 
