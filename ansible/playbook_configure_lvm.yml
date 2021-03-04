@@ -1,0 +1,16 @@
+---
+
+  - name: Configuration mde LVM pour Linux
+    hosts: all
+
+    tasks:
+
+    - name: Installation de paquets
+      apt:
+        pkg:
+        - vim
+        - htop
+        - git
+        - sudo
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes      
