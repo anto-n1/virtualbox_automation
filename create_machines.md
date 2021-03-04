@@ -12,8 +12,6 @@ Commandes effectuées sur Debian avant l'export :
 
 ```bash
 apt update
-apt install sudo
-gpasswd -a antonin sudo
 vi /etc/ssh/sshd_config -> PermitRootLogin yes
 
 apt clean
@@ -41,7 +39,8 @@ cat /dev/null > ~/.bash_history && history -c && sudo poweroff
 Export d'une VM dans un fichier box :
 
 ```bash
-vagrant package --base /home/antonin/virtualbox/debian_vagrant_base --output debian.box 
+cd /home/antonin/virtualbox/ # Se rendre dans le dossier virtualbox pour éviter les erreurs
+vagrant package --base debian_vagrant_base --output debian.box # debian_vagrant_base est le nom du dossier de la VM 
 vagrant box add debian.box --name=debian.box
 ```
 
