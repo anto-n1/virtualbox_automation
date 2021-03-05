@@ -38,24 +38,26 @@
       when: ansible_facts['os_family'] == "Debian"
       become: yes
 
-    - name: Installation d'nmap + net-tools + whois + bind-utils sur Redhat
+    - name: Installation d'nmap + net-tools + whois + bind-utils + tcpdump sur Redhat
       dnf:
         pkg:
           - nmap
           - net-tools
           - whois
           - bind-utils
+          - tcpdump
         state: present
       when: ansible_facts['os_family'] == "RedHat"
       become: yes
 
-    - name: Installation d'nmap + net-tools + whois + dnsutils sur Debian
+    - name: Installation d'nmap + net-tools + whois + dnsutils + tcpdump sur Debian
       apt:
         pkg:
           - nmap
           - net-tools
           - whois
           - dnsutils
+          - tcpdump
         state: present
       when: ansible_facts['os_family'] == "Debian"
       become: yes
