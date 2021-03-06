@@ -68,7 +68,9 @@ Versions des logiciels utilisés :
 * Refaire une box debian avec 25Go plutot que 15 -> affichage sur Jenkins
 * Autologin xfce
 * Désactiver le screensaver (blank screen) sur xfce et gnome
-* Déploiement machine Windows
+* Déploiement machine Windows -> DSC
 * Script d'installation de virtualbox_automation
-* Utiliser LVM lors de l'installation pour choisir taille du disque
+* Utiliser LVM lors de l'installation pour choisir taille du disque plus tard
 * Régler problème SSH nouvelle machine
+* Autoriser Jenkins uniquement en localhost
+* Ajout job destroy VM
