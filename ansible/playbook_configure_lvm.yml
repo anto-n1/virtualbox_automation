@@ -1,16 +1,12 @@
 ---
 
-  - name: Configuration mde LVM pour Linux
+  - name: Configuration LVM pour Linux
     hosts: all
 
     tasks:
 
-    - name: Installation de paquets
-      apt:
-        pkg:
-        - vim
-        - htop
-        - git
-        - sudo
-      when: ansible_facts['os_family'] == "Debian"
-      become: yes      
+    - name: Create or resize a volume group on top of /dev/sdb1 and /dev/sdc5.
+      community.general.lvg:
+        vg: debian-vg
+        pvs: /dev/sda,/dev/sdb
+    become: yes
