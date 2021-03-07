@@ -12,6 +12,7 @@ Commandes effectuées sur Debian avant l'export :
 
 ```bash
 apt update
+apt install sudo # obligatoire sinon problèmes d'élévation de privilège avec Vagrant
 vi /etc/ssh/sshd_config -> PermitRootLogin yes
 
 apt clean

@@ -5,6 +5,14 @@
 
     tasks:
 
+    - name: Ajout d'antonin au groupe sudo
+      ansible.builtin.user:
+        name: antonin
+        group: sudo
+      when: ansible_facts['os_family'] == "Debian"
+      become: yes
+      become_method: su # Faire cette commande en tant que root car antonin n'est pas encore dans le groupe sudo
+
     - name: Installation de paquets
       apt:
         pkg:
@@ -72,13 +80,6 @@
         name: antonin
         group: wheel
       when: ansible_facts['os_family'] == "RedHat"
-      become: yes
-
-    - name: Ajout d'antonin au groupe sudo
-      ansible.builtin.user:
-        name: antonin
-        group: sudo
-      when: ansible_facts['os_family'] == "Debian"
       become: yes
 
     - name: Suppresion de la demande de mot de passe pour sudo (Debian groupe sudo)

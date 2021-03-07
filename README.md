@@ -53,6 +53,7 @@ chown -R antonin:antonin /var/lib/jenkins
 
 ```bash
 dnf install ansible
+ansible-galaxy collection install community.general # Utilisé pour LVM
 ```
 
 ## Versions
@@ -71,6 +72,5 @@ Versions des logiciels utilisés :
 * Déploiement machine Windows -> DSC
 * Script d'installation de virtualbox_automation
 * Utiliser LVM lors de l'installation pour choisir taille du disque plus tard
-* Régler problème SSH nouvelle machine
 * Autoriser Jenkins uniquement en localhost
 * Ajout job destroy VM
