@@ -20,12 +20,18 @@ Vagrant.configure("2") do |config|
     if $SHARED_FOLDER
       config.vm.synced_folder "/home/antonin/virtualbox/shared_folder", "/share"
     end
-    
-    config.ssh.username = "root"
-    config.ssh.password = "mdp"
-    config.ssh.keys_only = false
-    config.ssh.insert_key = false
 
+    if $VM_TYPE == "windows.box"
+      config.vm.communicator = "winrm"
+      config.winrm.username = "antonin"
+      config.winrm.password = "mdp"
+    else
+      config.ssh.username = "root"
+      config.ssh.password = "mdp"
+      config.ssh.keys_only = false
+      config.ssh.insert_key = false
+    end
+    
     config.vm.provider "virtualbox" do |vb|
 
       vb.gui = false

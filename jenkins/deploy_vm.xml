@@ -19,11 +19,13 @@ Uniquement lettres, chiffres, trait d&apos;unions et points.</description>
 
 Taille des disques :
 Debian : 25 Go
-RedHat : 20 Go</description>
+RedHat : 20 Go
+Windows : 25 Go</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>debian</string>
               <string>redhat</string>
+              <string>windows</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
@@ -86,14 +88,19 @@ python generate_vagrantfile.py ${vm_name} ${vm_type} ${ip_address} ${memory} ${c
 export VAGRANT_VAGRANTFILE=Vagrantfile_to_use
 vagrant up
 
-# Configuration de la VM avec Ansible
-export ANSIBLE_CONFIG=ansible/ansible.cfg
-
-ansible-playbook -i ansible/hosts_to_use ansible/playbook_base_config.yml
-
-if [[ ${gui} != &quot;no&quot; ]];
+if [[ ${vm_type} != &quot;windows&quot; ]];
 then
-	ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_gui.yml -e gui=${gui}
+  
+  # Configuration de la VM avec Ansible
+  export ANSIBLE_CONFIG=ansible/ansible.cfg
+  
+  ansible-playbook -i ansible/hosts_to_use ansible/playbook_base_config.yml
+  
+  if [[ ${gui} != &quot;no&quot; ]];
+  then
+      ansible-playbook -i ansible/hosts_to_use ansible/playbook_install_gui.yml -e gui=${gui}
+  fi
+  
 fi</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>

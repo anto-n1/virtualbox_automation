@@ -35,6 +35,18 @@ rm -rf /EMPTY
 cat /dev/null > ~/.bash_history && history -c && sudo poweroff
 ```
 
+## Windows
+
+Commandes effectuées en powershell avant l'export :
+
+Se mettre dans un réseau privé puis en tant qu'administrateur :
+
+```powershell
+Enable-PSRemoting -force
+```
+
+Supprimer tous les programmes inutiles (jeux, onedrive...)
+
 ## Package Vagrant
 
 Export d'une VM dans un fichier box :
