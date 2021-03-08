@@ -82,9 +82,3 @@ Versions des logiciels utilisés :
 * Vagrant 2.2.14
 * Jenkins 2.281
 * Ansible 2.9.17
-
-## TODO
-
-* Désactiver le screensaver (blank screen) sur xfce et gnome
-* Déploiement machine Windows -> DSC
-* Script d'installation de virtualbox_automation

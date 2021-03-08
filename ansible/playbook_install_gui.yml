@@ -38,7 +38,7 @@
       ansible.builtin.lineinfile:
         path: /etc/gdm3/daemon.conf
         state: present
-        regexp: "# AutomaticLoginEnable = true"
+        regexp: "#  AutomaticLoginEnable = true"
         line: "AutomaticLoginEnable = true"
       when: ansible_facts['os_family'] == "Debian" and gui == "gnome"
       become: yes
@@ -47,7 +47,7 @@
       ansible.builtin.lineinfile:
         path: /etc/gdm3/daemon.conf
         state: present
-        regexp: "# AutomaticLogin = user1"
+        regexp: "#  AutomaticLogin = user1"
         line: "AutomaticLogin = antonin"
       when: ansible_facts['os_family'] == "Debian" and gui == "gnome"
       become: yes
@@ -88,6 +88,10 @@
         - /home/antonin/Public
         - /home/antonin/Templates
         - /home/antonin/Videos
+
+    - name: Désactivation du blank screen Gnome
+      ansible.builtin.shell: gsettings set org.gnome.desktop.session idle-delay 0
+      when: gui == "gnome"
 
     - name: Redémarrage de la VM
       reboot:

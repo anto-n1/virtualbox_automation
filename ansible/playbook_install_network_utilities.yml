@@ -21,23 +21,6 @@
       when: ansible_facts['os_family'] == "RedHat"
       become: yes
 
-    - name: Créer le groupe wireshark s'il n'existe pas
-      ansible.builtin.group:
-        name: wireshark
-        state: present
-      become: yes
-
-    - name: Ajout d'antonin au groupe wireshark
-      ansible.builtin.user:
-        name: antonin
-        group: wireshark
-      become: yes
-
-    - name: Forcer le fait que les utilisateurs peuvent capturer des paquets
-      shell: dpkg-reconfigure wireshark
-      when: ansible_facts['os_family'] == "Debian"
-      become: yes
-
     - name: Installation d'nmap + net-tools + whois + bind-utils + tcpdump sur Redhat
       dnf:
         pkg:
@@ -60,4 +43,20 @@
           - tcpdump
         state: present
       when: ansible_facts['os_family'] == "Debian"
+      become: yes
+
+    - name: Créer le groupe wireshark s'il n'existe pas
+      ansible.builtin.group:
+        name: wireshark
+        state: present
+      become: yes
+
+    - name: Ajout d'antonin au groupe wireshark
+      ansible.builtin.user:
+        name: antonin
+        groups: wireshark
+      become: yes
+
+    - name: Redémarrage de la VM
+      reboot:
       become: yes
