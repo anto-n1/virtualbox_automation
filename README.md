@@ -49,6 +49,9 @@ chown -R antonin:antonin /var/cache/jenkins
 chown -R antonin:antonin /var/lib/jenkins
 ```
 
+Installation du plugin Active Choices Plug-in nécessaire pour le bon fonctionnement
+des jobs.
+
 La restauration de job jenkins se fait en plaçant les sauvegardes des jobs situés dans le
 répertoire jenkins dans /var/lib/jenkins. Il faut placer ces jobs dans des répertoires et
 nommer les fichiers config.xml :
