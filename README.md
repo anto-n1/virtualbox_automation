@@ -49,6 +49,20 @@ chown -R antonin:antonin /var/cache/jenkins
 chown -R antonin:antonin /var/lib/jenkins
 ```
 
+La restauration de job jenkins se fait en plaçant les sauvegardes des jobs situés dans le
+répertoire jenkins dans /var/lib/jenkins. Il faut placer ces jobs dans des répertoires et
+nommer les fichiers config.xml :
+
+```bash
+mkdir /var/lib/jenkins/jobs/deploy_vm
+mkdir /var/lib/jenkins/jobs/install_gui
+mkdir /var/lib/jenkins/jobs/install_software
+
+cp jenkins/deploy_vm.xml /var/lib/jenkins/jobs/deploy_vm/config.xml
+cp jenkins/install_gui.xml /var/lib/jenkins/jobs/install_gui/config.xml
+cp jenkins/install_software.xml /var/lib/jenkins/jobs/install_software/config.xml
+```
+
 ### Installation Ansible
 
 ```bash
