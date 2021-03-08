@@ -70,6 +70,5 @@ Versions des logiciels utilisés :
 * Désactiver le screensaver (blank screen) sur xfce et gnome
 * Déploiement machine Windows -> DSC
 * Script d'installation de virtualbox_automation
-* Utiliser LVM lors de l'installation pour choisir taille du disque plus tard
 * Autoriser Jenkins uniquement en localhost
 * Ajout job destroy VM
