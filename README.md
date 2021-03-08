@@ -42,7 +42,10 @@ La procédure d'installation est décrite [ici](https://www.jenkins.io/doc/book/
 Après installation :
 
 ```bash
-vim /etc/sysconfig/jenkins -> editer la variable $JENKINS_USER="antonin"
+vim /etc/sysconfig/jenkins
+# Editer les variables suivantes :
+# JENKINS_USER="antonin"
+# JENKINS_LISTEN_ADDRESS="127.0.0.1"
 
 chown -R antonin:antonin /var/log/jenkins
 chown -R antonin:antonin /var/cache/jenkins
@@ -85,4 +88,3 @@ Versions des logiciels utilisés :
 * Désactiver le screensaver (blank screen) sur xfce et gnome
 * Déploiement machine Windows -> DSC
 * Script d'installation de virtualbox_automation
-* Autoriser Jenkins uniquement en localhost
