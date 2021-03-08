@@ -15,7 +15,11 @@ Uniquement lettres, chiffres, trait d&apos;unions et points.</description>
         </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>vm_type</name>
-          <description>Choix du type d&apos;OS à installer.</description>
+          <description>Choix du type d&apos;OS à installer.
+
+Taille des disques :
+Debian : 25 Go
+RedHat : 20 Go</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
               <string>debian</string>
@@ -73,10 +77,10 @@ Xfce uniquement disponible pour Debian. Si Xfce est choisi avec RedHat, Gnome se
     <hudson.tasks.Shell>
       <command>#Supprimer la ligne correpondant à l&apos;IP dans know_hosts
 ssh-keygen -R ${ip_address}
+sed &apos;/127.0.0.1/d&apos; /home/antonin/.ssh/known_hosts
 
 # Générer le fichier Vagrantfile
 python generate_vagrantfile.py ${vm_name} ${vm_type} ${ip_address} ${memory} ${cpu} ${shared_folder}
-
 
 # Déploiement de la VM sur Virtualbox via Vagrant
 export VAGRANT_VAGRANTFILE=Vagrantfile_to_use

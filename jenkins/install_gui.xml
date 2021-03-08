@@ -36,7 +36,10 @@ Xfce uniquement disponible pour Debian. Si Xfce est choisi avec RedHat, Gnome se
   <customWorkspace>/home/antonin/informatique/git/virtualbox_automation</customWorkspace>
   <builders>
     <hudson.tasks.Shell>
-      <command># Générer le fichier Vagrantfile
+      <command>#Supprimer la ligne correpondant à l&apos;IP dans know_hosts
+ssh-keygen -R ${ip_address}
+
+# Générer le fichier Vagrantfile
 python generate_vagrantfile.py ${ip_address}
 
 # Configuration de la VM avec Ansible

@@ -13,9 +13,9 @@ Commandes effectuées sur Debian avant l'export :
 ```bash
 apt update
 apt install sudo # obligatoire sinon problèmes d'élévation de privilège avec Vagrant
-vi /etc/ssh/sshd_config -> PermitRootLogin yes
-
 apt clean
+
+vi /etc/ssh/sshd_config # PermitRootLogin yes
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -rf /EMPTY
 cat /dev/null > ~/.bash_history && history -c && sudo poweroff
