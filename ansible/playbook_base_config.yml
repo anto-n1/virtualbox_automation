@@ -19,6 +19,7 @@
         - vim
         - htop
         - git
+        - tree
       when: ansible_facts['os_family'] == "Debian"
       become: yes      
 
@@ -27,6 +28,7 @@
         name:
           - vim
           - git
+          - tree
         state: present
       when: ansible_facts['os_family'] == "RedHat"
       become: yes
