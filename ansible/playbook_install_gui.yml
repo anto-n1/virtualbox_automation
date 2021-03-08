@@ -13,6 +13,14 @@
         state: present
       when: ansible_facts['os_family'] == "Debian"
       become: yes
+
+    - name: Installation de firefox pour xfce (non installé par défaut)
+      apt:
+        pkg:
+        - firefox-esr
+        state: present
+      when: ansible_facts['os_family'] == "Debian" and gui == "xfce4"
+      become: yes
     
     - name: Installation de Gnome pour RedHat (xfce non supporté)
       dnf:
