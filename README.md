@@ -67,7 +67,6 @@ Versions des logiciels utilisés :
 ## TODO
 
 * Refaire une box debian avec 25Go plutot que 15 -> affichage sur Jenkins
-* Autologin xfce
 * Désactiver le screensaver (blank screen) sur xfce et gnome
 * Déploiement machine Windows -> DSC
 * Script d'installation de virtualbox_automation

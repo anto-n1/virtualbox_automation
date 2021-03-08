@@ -51,6 +51,24 @@
       when: ansible_facts['os_family'] == "RedHat"
       become: yes
 
+    - name: Activer autologin xfce
+      ansible.builtin.lineinfile:
+        path: /etc/lightdm/lightdm.conf
+        state: present
+        regexp: "#autologin-user="
+        line: "autologin-user=antonin"
+      when: ansible_facts['os_family'] == "Debian" and gui == "xfce4"
+      become: yes
+
+    - name: Activer autologin xfce
+      ansible.builtin.lineinfile:
+        path: /etc/lightdm/lightdm.conf
+        state: present
+        regexp: "#autologin-user-timeout=delay"
+        line: "autologin-user-timeout=0"
+      when: ansible_facts['os_family'] == "Debian" and gui == "xfce4"
+      become: yes
+
     - name: Suppression des répertoires inutiles dans /home/antonin
       ansible.builtin.file:
         path: "{{ item }}"
