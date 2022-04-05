@@ -1,7 +1,5 @@
 # Virtualbox automation
 
-**CE PROJET N'EST PLUS MAINTENU ET EST CONSIDERE COMME OBSOLETE.**
-
 Automatisation de déploiement de machines virtuelles Virtualbox.
 
 ## Installation des logiciels nécessaires
